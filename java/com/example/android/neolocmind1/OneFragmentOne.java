@@ -2,6 +2,7 @@ package com.example.android.neolocmind1;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,6 +29,8 @@ public class OneFragmentOne extends Fragment implements ForecastAdapter.Forecast
         Context context = getActivity();
         Toast.makeText(context, weatherForDay, Toast.LENGTH_SHORT)
                 .show();
+        Intent intent = new Intent(context,AddItemActivity.class);
+        startActivity(intent);
     }
 
     @Override

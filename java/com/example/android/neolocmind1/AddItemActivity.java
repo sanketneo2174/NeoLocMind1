@@ -25,6 +25,7 @@ public class AddItemActivity extends AppCompatActivity implements  View.OnClickL
         setContentView(R.layout.activity_add_item);
         final Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("gfhg");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,10 +46,10 @@ public class AddItemActivity extends AppCompatActivity implements  View.OnClickL
                 }
                 if (scrollRange + verticalOffset == 0) {
                     isShow = true;
-                    showOption(R.id.action_info);
+                    showOption(R.id.action_edit);
                 } else if (isShow) {
                     isShow = false;
-                    hideOption(R.id.action_info);
+                    hideOption(R.id.action_edit);
                 }
             }
         });
@@ -57,8 +58,8 @@ public class AddItemActivity extends AppCompatActivity implements  View.OnClickL
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         this.menu = menu;
-        getMenuInflater().inflate(R.menu.additem_menu, menu);
-        hideOption(R.id.action_info);
+        getMenuInflater().inflate(R.menu.displayitem_menu, menu);
+        hideOption(R.id.action_edit);
         return true;
     }
     private void hideOption(int id) {

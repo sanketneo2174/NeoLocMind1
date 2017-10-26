@@ -12,6 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.ic_action_home,
             R.drawable.ic_action_place
     };
+    private int PLACE_PICKER_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,12 +71,27 @@ public class MainActivity extends AppCompatActivity {
     }
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.addItem){
-            Intent intent = new Intent(this,AddItemActivity2.class);
-            startActivity(intent);
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+            try {
+                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+            }catch(Exception e) {
+
+            }
         }else if(item.getItemId() == R.id.settingsItem){
 
         }
         return true;
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this,AddItemActivity2.class);
+                startActivity(intent);
+            }
+        }
     }
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);

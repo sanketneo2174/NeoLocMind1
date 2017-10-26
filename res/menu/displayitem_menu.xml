@@ -2,17 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".AddItemActivity2">
+    tools:context=".AddItemActivity">
     <item
-        android:id="@+id/action_add_location"
-        android:icon="@drawable/ic_location_on_white_24dp"
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_mode_edit_white_24dp"
         android:orderInCategory="100"
         android:title="action_settings"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_add_image"
-        android:icon="@drawable/ic_insert_photo_white_24dp"
+        android:id="@+id/action_settings"
         android:orderInCategory="200"
-        android:title="info"
-        app:showAsAction="always" />
+        android:title="Settings"
+        app:showAsAction="never" />
 </menu>
