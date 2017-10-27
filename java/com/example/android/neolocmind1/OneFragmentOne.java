@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,7 +22,7 @@ public class OneFragmentOne extends Fragment implements ForecastAdapter.Forecast
                             "aazazaa","xcvfvcvc","vbvmbbmv","klklklll","qwqww"};
     private RecyclerView mRecyclerView;
     private ForecastAdapter mForecastAdapter;
-
+    private DividerItemDecoration mDividerItemDecoration;
     public OneFragmentOne() {
         // Required empty public constructor
     }
@@ -59,6 +60,11 @@ public class OneFragmentOne extends Fragment implements ForecastAdapter.Forecast
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mForecastAdapter);
         mForecastAdapter.setWeatherData(data);
+        mDividerItemDecoration = new DividerItemDecoration(
+                mRecyclerView.getContext(),
+                layoutManager.getOrientation()
+        );
+        mRecyclerView.addItemDecoration(mDividerItemDecoration);
         // Inflate the layout for this fragment
         return view;
     }

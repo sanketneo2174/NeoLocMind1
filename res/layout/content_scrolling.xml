@@ -8,50 +8,36 @@
     tools:context=".AddItemActivity"
     tools:showIn="@layout/activity_add_item">
 
-    <LinearLayout
-        android:layout_height="wrap_content"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/editDetails"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nameLabel"
-            android:text="Name:"
-            android:textSize="18sp"
-            tools:textStyle="normal|bold" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameEditText" />
+            android:id="@+id/description_label"
+            android:text="Description"
+            android:layout_margin="14dp"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:id="@+id/descriptionLabel"
-            android:text="Description:"
-            android:textSize="18sp"
-            android:textStyle="normal|bold" />
-        <EditText
-            android:layout_width="match_parent"
+            android:id="@+id/description_text"
+            android:layout_alignLeft="@+id/description_label"
+            android:layout_below="@+id/description_label"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget erat a tellus posuere hendrerit. Donec vel venenatis quam. Morbi lacinia lacinia diam, vel mollis sapien placerat a. Nam facilisis, erat venenatis feugiat ultricies, velit nisl facilisis augue, in tempor metus nisi nec magna. Curabitur tempus eros a mauris euismod lacinia. Curabitur libero lacus, scelerisque ut nisl nec, bibendum tincidunt leo. Donec at gravida augue"
+            android:layout_marginTop="14dp"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/enabled_switch"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/descriptionEditText"
-            android:lines="3" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:id="@+id/locationLabel"
-            android:text="Location"
-            android:textSize="18sp"
-            android:textStyle="normal|bold" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/locationEditText"
-            android:text="Click to select a location"
-            android:onClick="clickHandler"/>
-    </LinearLayout>
+            android:layout_alignLeft="@+id/description_text"
+            android:layout_below="@+id/description_text"
+            android:layout_marginTop="14dp"
+            android:checked="true"
+            android:text="Enabled"
+            app:thumbTint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+            app:trackTint="@color/textColorPrimary" />
+    </RelativeLayout>
+
 </android.support.v4.widget.NestedScrollView>
