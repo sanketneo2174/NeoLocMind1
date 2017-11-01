@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.android.neolocmind1.utils.SqlWrapper;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,9 +28,9 @@ public class OneFragmentOne extends Fragment implements ForecastAdapter.Forecast
     public OneFragmentOne() {
         // Required empty public constructor
     }
-    public void onClick(String weatherForDay) {
+    public void onClick(int position) {
         Context context = getActivity();
-        Toast.makeText(context, weatherForDay, Toast.LENGTH_SHORT)
+        Toast.makeText(context, Integer.toString(position), Toast.LENGTH_SHORT)
                 .show();
         Intent intent = new Intent(context,AddItemActivity.class);
         startActivity(intent);
@@ -39,6 +41,7 @@ public class OneFragmentOne extends Fragment implements ForecastAdapter.Forecast
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one1, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rcview);
+        SqlWrapper.getAllReminders();
         LinearLayoutManager layoutManager
                 = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
 
@@ -55,11 +58,11 @@ public class OneFragmentOne extends Fragment implements ForecastAdapter.Forecast
          * The ForecastAdapter is responsible for linking our weather data with the Views that
          * will end up displaying our weather data.
          */
-        mForecastAdapter = new ForecastAdapter(this);
+        mForecastAdapter = new ForecastAdapter(this, SqlWrapper.mCursor);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mForecastAdapter);
-        mForecastAdapter.setWeatherData(data);
+        //mForecastAdapter.setWeatherData(data);
         mDividerItemDecoration = new DividerItemDecoration(
                 mRecyclerView.getContext(),
                 layoutManager.getOrientation()
@@ -69,4 +72,19 @@ public class OneFragmentOne extends Fragment implements ForecastAdapter.Forecast
         return view;
     }
 
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        SqlWrapper.cursorChanged = false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(SqlWrapper.cursorChanged){
+            mForecastAdapter.setNewCursor(SqlWrapper.mCursor);
+        }
+    }
 }

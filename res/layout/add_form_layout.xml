@@ -10,7 +10,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -25,7 +25,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/titleField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -35,10 +35,10 @@
         android:inputType="textPersonName"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/descriptionLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -51,10 +51,10 @@
         android:textSize="14sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/titleField" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/descriptionField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -66,10 +66,10 @@
         android:minLines="4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionLabel" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/modeSwitch"
         style="@style/Animation.AppCompat.DropDownUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,9 +80,9 @@
         android:textOff="No"
         android:textOn="Yes"
         android:textSize="14sp"
-        android:thumbTint="@color/colorPrimary"
-        android:trackTint="@color/colorPrimary"
+        android:thumbTint="@color/cast_libraries_material_featurehighlight_outer_highlight_default_color"
+        android:trackTint="@color/cast_expanded_controller_ad_label_background_color"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionField" />
 
 </android.support.constraint.ConstraintLayout>

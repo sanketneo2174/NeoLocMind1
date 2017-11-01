@@ -14,8 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.android.neolocmind1.utils.SqlWrapper;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
+        SqlWrapper.initDB(getApplicationContext());
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -88,7 +91,12 @@ public class MainActivity extends AppCompatActivity {
                 Place place = PlacePicker.getPlace(data, this);
                 String toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+                LatLng latLng = place.getLatLng();
+                Bundle bundle = new Bundle();
+                bundle.putString("latitude", Double.toString(latLng.latitude));
+                bundle.putString("longitude", Double.toString(latLng.longitude));
                 Intent intent = new Intent(this,AddItemActivity2.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         }

@@ -1,11 +1,14 @@
 package com.example.android.neolocmind1;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.android.neolocmind1.data.ReminderContract;
 
 /**
  * Created by DELL-PC on 3/16/2017.
@@ -13,7 +16,7 @@ import android.widget.TextView;
 
 public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder> {
 
-    private String[] mWeatherData;
+    private Cursor mCursor;
 
     // COMPLETED (3) Create a final private ForecastAdapterOnClickHandler called mClickHandler
     /*
@@ -28,7 +31,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
      * The interface that receives onClick messages.
      */
     public interface ForecastAdapterOnClickHandler {
-        void onClick(String weatherForDay);
+        void onClick(int position);
     }
 
     // COMPLETED (4) Add a ForecastAdapterOnClickHandler as a parameter to the constructor and store it in mClickHandler
@@ -38,8 +41,9 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
      * @param clickHandler The on-click handler for this adapter. This single handler is called
      *                     when an item is clicked.
      */
-    public ForecastAdapter(ForecastAdapterOnClickHandler clickHandler) {
+    public ForecastAdapter(ForecastAdapterOnClickHandler clickHandler, Cursor pCursor) {
         mClickHandler = clickHandler;
+        mCursor = pCursor;
     }
 
     // COMPLETED (5) Implement OnClickListener in the ForecastAdapterViewHolder class
@@ -65,8 +69,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
         @Override
         public void onClick(View v) {
             int adapterPosition = getAdapterPosition();
-            String weatherForDay = mWeatherData[adapterPosition];
-            mClickHandler.onClick(weatherForDay);
+            mClickHandler.onClick(adapterPosition);
         }
     }
 
@@ -104,8 +107,14 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
      */
     @Override
     public void onBindViewHolder(ForecastAdapterViewHolder forecastAdapterViewHolder, int position) {
-        String weatherForThisDay = mWeatherData[position];
-        forecastAdapterViewHolder.mWeatherTextView.setText(weatherForThisDay);
+
+        if (!mCursor.moveToPosition(position))
+            return;
+
+        String titleReminder = mCursor.getString(mCursor.getColumnIndex(ReminderContract.ReminderEntry.COLUMN_REMINDER_TITLE));
+        long id = mCursor.getLong(mCursor.getColumnIndex(ReminderContract.ReminderEntry._ID));
+        forecastAdapterViewHolder.mWeatherTextView.setText(titleReminder);
+        forecastAdapterViewHolder.itemView.setTag(id);
     }
 
     /**
@@ -116,8 +125,7 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
      */
     @Override
     public int getItemCount() {
-        if (null == mWeatherData) return 0;
-        return mWeatherData.length;
+        return mCursor.getCount();
     }
 
     /**
@@ -127,8 +135,13 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
      *
      * @param weatherData The new weather data to be displayed.
      */
-    public void setWeatherData(String[] weatherData) {
-        mWeatherData = weatherData;
-        notifyDataSetChanged();
+    public void setNewCursor(Cursor newCursor) {
+        // Always close the previous mCursor first
+        if (mCursor != null) mCursor.close();
+        mCursor = newCursor;
+        if (newCursor != null) {
+            // Force the RecyclerView to refresh
+            this.notifyDataSetChanged();
+        }
     }
 }
